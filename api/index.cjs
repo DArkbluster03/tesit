@@ -1,10 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoutes from './routes/user.route.js';
-import authRoutes from './routes/auth.route.js';
-import postRoutes from './routes/post.route.js';
-import commentRoutes from './routes/comment.route.js';
+import userRoutes from './routes/user.route.cjs';
+import authRoutes from './routes/auth.route.cjs';
+import postRoutes from './routes/post.route.cjs';
+import commentRoutes from './routes/comment.route.cjs';
 import cookieParser from 'cookie-parser';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
