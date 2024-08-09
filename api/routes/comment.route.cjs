@@ -7,7 +7,7 @@ import {
   getPostComments,
   getcomments,
   likeComment,
-} from '../controllers/comment.controller.js';
+} from '../controllers/comment.controller.cjs';
 
 const router = express.Router();
 

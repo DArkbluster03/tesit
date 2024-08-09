@@ -6,8 +6,8 @@ import {
   signout,
   test,
   updateUser,
-} from '../controllers/user.controller.js';
-import { verifyToken } from '../utils/verifyUser.js';
+} from '../controllers/user.controller.cjs';
+import { verifyToken } from '../utils/verifyUser.cjs';
 
 const router = express.Router();
 
