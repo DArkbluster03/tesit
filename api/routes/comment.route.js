@@ -1,13 +1,13 @@
-const express = require('express');
-const { verifyToken } = require('../utils/verifyUser.js');
-const {
+import express from 'express';
+import { verifyToken } from '../utils/verifyUser.js';
+import {
   createComment,
   deleteComment,
   editComment,
   getPostComments,
   getcomments,
   likeComment,
-} = require('../controllers/comment.controller.js');
+} from '../controllers/comment.controller.js';
 
 const router = express.Router();
 
@@ -18,4 +18,4 @@ router.put('/editComment/:commentId', verifyToken, editComment);
 router.delete('/deleteComment/:commentId', verifyToken, deleteComment);
 router.get('/getcomments', verifyToken, getcomments);
 
-module.exports = router;
+export default router;

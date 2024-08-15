@@ -1,12 +1,12 @@
-const bcryptjs = require('bcryptjs');
-const { errorHandler } = require('../utils/error.js');
-const User = require('../models/user.model.js');
+import bcryptjs from 'bcryptjs';
+import { errorHandler } from '../utils/error.js';
+import User from '../models/user.model.js';
 
-const test = (req, res) => {
+export const test = (req, res) => {
   res.json({ message: 'API is working!' });
 };
 
-const updateUser = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to update this user'));
   }
@@ -54,7 +54,7 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-const deleteUser = async (req, res, next) => {
+export const deleteUser = async (req, res, next) => {
   if (!req.user.isAdmin && req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'You are not allowed to delete this user'));
   }
@@ -66,7 +66,7 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-const signout = (req, res, next) => {
+export const signout = (req, res, next) => {
   try {
     res
       .clearCookie('access_token')
@@ -77,7 +77,7 @@ const signout = (req, res, next) => {
   }
 };
 
-const getUsers = async (req, res, next) => {
+export const getUsers = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, 'You are not allowed to see all users'));
   }
@@ -119,7 +119,7 @@ const getUsers = async (req, res, next) => {
   }
 };
 
-const getUser = async (req, res, next) => {
+export const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId);
     if (!user) {
@@ -130,13 +130,4 @@ const getUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-module.exports = {
-  test,
-  updateUser,
-  deleteUser,
-  signout,
-  getUsers,
-  getUser,
 };
