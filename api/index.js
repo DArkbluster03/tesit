@@ -1,12 +1,12 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import userRoutes from './routes/user.route.js';
-import authRoutes from './routes/auth.route.js';
-import postRoutes from './routes/post.route.js';
-import commentRoutes from './routes/comment.route.js';
-import cookieParser from 'cookie-parser';
-import path from 'path';
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const userRoutes = require('./routes/user.route.js');
+const authRoutes = require('./routes/auth.route.js');
+const postRoutes = require('./routes/post.route.js');
+const commentRoutes = require('./routes/comment.route.js');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 
 dotenv.config();
 
@@ -25,10 +25,6 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
-});
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
@@ -49,4 +45,8 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000!');
 });
