@@ -7,6 +7,8 @@ import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import cors from 'cors';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -23,19 +25,26 @@ const __dirname = path.resolve();
 
 const app = express();
 
+// Security middleware
+app.use(helmet());
+
+// CORS configuration
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+  allowedHeaders: 'Content-Type,Authorization', // Allow these headers
+  credentials: true, // Allow credentials (cookies) to be sent
+}));
+
 app.use(express.json());
 app.use(cookieParser());
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
-});
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
@@ -49,4 +58,8 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000!');
 });
