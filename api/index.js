@@ -47,7 +47,7 @@ app.use('/api/comment', commentRoutes);
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 // Serve index.html for all other routes (client-side routing)
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 
