@@ -32,7 +32,13 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-app.use(cors(
+app.use(cors({
+  origin: 'https://client-plum-kappa.vercel.app/', // Replace with your frontend URL
+  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+  allowedHeaders: 'Content-Type,Authorization', // Allow these headers
+  credentials: true, // Allow cr
+}
+ 
   
 ));
 
