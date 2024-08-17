@@ -32,7 +32,9 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-app.use(cors());
+app.use(cors(
+  
+));
 
 app.use(express.json());
 app.use(cookieParser());
