@@ -32,22 +32,26 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-app.use(cors());
+app.use(cors());  // Customize as needed
 
 app.use(express.json());
 app.use(cookieParser());
 
+// API routes
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 
+// Serve static files
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-app.get('/test', (req, res) => {
-  res.send("Hello world");
+// Serve index.html for all other routes (client-side routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
@@ -58,6 +62,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}!`);
 });
