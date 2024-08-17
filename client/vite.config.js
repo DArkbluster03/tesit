@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api-alpha-fawn.vercel.app/',
+        target:  'https://api-alpha-fawn.vercel.app/',
         secure: false,
       },
     },
