@@ -32,12 +32,7 @@ const app = express();
 app.use(helmet());
 
 // CORS configuration
-app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your frontend URL
-  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
-  allowedHeaders: 'Content-Type,Authorization', // Allow these headers
-  credentials: true, // Allow credentials (cookies) to be sent
-}));
+app.use(cors());
 
 app.use(express.json());
 app.use(cookieParser());
