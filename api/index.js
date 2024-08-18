@@ -13,13 +13,14 @@ import { fileURLToPath } from 'url';
 
 dotenv.config();
 
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
     console.log('MongoDb is connected');
   })
   .catch((err) => {
-    console.log(err);
+    console.log('MongoDB connection error:', err);
   });
 
 // Define __dirname in ES module
@@ -33,32 +34,39 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: 'https://client-plum-kappa.vercel.app/', // Replace with your frontend URL
+  origin: 'https://client-plum-kappa.vercel.app', // Replace with your frontend URL
   methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
   allowedHeaders: 'Content-Type,Authorization', // Allow these headers
-  credentials: true, // Allow cr
-}
- 
-  
-));
+  credentials: true, // Allow credentials (cookies)
+}));
 
 app.use(express.json());
 app.use(cookieParser());
 
+// API routes
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 
+// Serve static files from the client/dist directory
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
+// Root route
 app.get('/', (req, res) => {
   res.send("Hello world");
 });
 
+// Handle 404 errors for unknown routes
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Global error handling middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
+  console.error(`Error: ${message}`);
   res.status(statusCode).json({
     success: false,
     statusCode,
@@ -66,6 +74,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000!');
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}!`);
 });
