@@ -101,7 +101,7 @@ export default function Search() {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/api/post/getposts?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
         return;
