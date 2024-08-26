@@ -25,7 +25,7 @@ mongoose
 
 // Define __dirname in ES module
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+//const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -44,13 +44,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('https://api-alpha-fawn.vercel.app/user', userRoutes);
-app.use('https://api-alpha-fawn.vercel.app/auth', authRoutes);
-app.use('https://api-alpha-fawn.vercel.app/post', postRoutes);
-app.use('https://api-alpha-fawn.vercel.app/comment', commentRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
 // Serve static files from the client/dist directory
-app.use(express.static(path.join(__dirname, 'client', 'build')));
+//app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Root route
 app.get('/', (req, res) => {
