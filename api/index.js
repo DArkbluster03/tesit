@@ -34,20 +34,17 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-  origin: 'https://client-plum-kappa.vercel.app', // Replace with your frontend URL
-  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
-  allowedHeaders: 'Content-Type,Authorization', // Allow these headers
-  credentials: true, // Allow credentials (cookies)
+ 
 }));
 
 app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/post', postRoutes);
-app.use('/api/comment', commentRoutes);
+app.use('https://api-alpha-fawn.vercel.app/user', userRoutes);
+app.use('https://api-alpha-fawn.vercel.app/auth', authRoutes);
+app.use('https://api-alpha-fawn.vercel.app/post', postRoutes);
+app.use('https://api-alpha-fawn.vercel.app/comment', commentRoutes);
 
 // Serve static files from the client/dist directory
 //app.use(express.static(path.join(__dirname, 'client', 'build')));
