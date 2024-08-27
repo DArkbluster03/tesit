@@ -17,15 +17,15 @@ dotenv.config();
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
-    console.log('MongoDb is connected');
+    console.log('MongoDB is connected');
   })
   .catch((err) => {
     console.log('MongoDB connection error:', err);
   });
 
 // Define __dirname in ES module
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -34,24 +34,24 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
- 
+
 }));
 
 app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('/user', userRoutes);
-app.use('/auth', authRoutes);
-app.use('/post', postRoutes);
-app.use('/comment', commentRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
 // Serve static files from the client/dist directory
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Root route
 app.get('/', (req, res) => {
-  res.send("Hello world");
+  res.send('Hello world');
 });
 
 // Handle 404 errors for unknown routes
