@@ -133,7 +133,7 @@ export default function Search() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', numberOfPosts);
     
-    const res = await fetch(`/api/post/getposts?${urlParams.toString()}`);
+    const res = await fetch(`https://api-alpha-fawn.vercel.app/post/getposts?${urlParams.toString()}`);
     if (!res.ok) {
       return;
     }

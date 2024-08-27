@@ -47,7 +47,7 @@ app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
 
 // Serve static files from the client/dist directory
-//app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Root route
 app.get('/', (req, res) => {
