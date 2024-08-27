@@ -27,23 +27,12 @@ export const signup = async (req, res, next) => {
       { expiresIn: '15m' }
     );
 
-    
-
-    const refreshToken = jwt.sign(
-      { id: newUser._id },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    newUser.refreshToken = refreshToken;
-    await newUser.save();
-
     res
       .status(200)
       .cookie('access_token', accessToken, {
         httpOnly: true,
       })
-      .json({ refreshToken, accessToken });
+      .json({ accessToken });
   } catch (error) {
     next(error);
   }
@@ -73,15 +62,6 @@ export const signin = async (req, res, next) => {
       { expiresIn: '15m' }
     );
 
-    const refreshToken = jwt.sign(
-      { id: validUser._id },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    validUser.refreshToken = refreshToken;
-    await validUser.save();
-
     const { password: pass, ...rest } = validUser._doc;
 
     res
@@ -89,11 +69,12 @@ export const signin = async (req, res, next) => {
       .cookie('access_token', accessToken, {
         httpOnly: true,
       })
-      .json({ refreshToken, ...rest });
+      .json({ accessToken, ...rest });
   } catch (error) {
     next(error);
   }
 };
+
 export const google = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.body;
   try {
@@ -105,22 +86,13 @@ export const google = async (req, res, next) => {
         { expiresIn: '15m' }
       );
 
-      const refreshToken = jwt.sign(
-        { id: user._id },
-        process.env.JWT_REFRESH_SECRET,
-        { expiresIn: '7d' }
-      );
-
-      user.refreshToken = refreshToken;
-      await user.save();
-
       const { password, ...rest } = user._doc;
       res
         .status(200)
         .cookie('access_token', accessToken, {
           httpOnly: true,
         })
-        .json({ refreshToken, ...rest });
+        .json({ accessToken, ...rest });
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
@@ -143,68 +115,17 @@ export const google = async (req, res, next) => {
         { expiresIn: '15m' }
       );
 
-      const refreshToken = jwt.sign(
-        { id: newUser._id },
-        process.env.JWT_REFRESH_SECRET,
-        { expiresIn: '7d' }
-      );
-
-      newUser.refreshToken = refreshToken;
-      await newUser.save();
-
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
         .cookie('access_token', accessToken, {
           httpOnly: true,
         })
-        .json({ refreshToken, ...rest });
+        .json({ accessToken, ...rest });
     }
   } catch (error) {
     next(error);
   }
 };
-export const refreshToken = async (req, res, next) => {
-  const { refreshToken } = req.body;
 
-  if (!refreshToken) {
-    return next(errorHandler(401, 'Refresh Token is required'));
-  }
-
-  try {
-    const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-
-    const user = await User.findById(decoded.id);
-    if (!user || user.refreshToken !== refreshToken) {
-      return next(errorHandler(403, 'Invalid refresh token'));
-    }
-
-    // Generate new tokens
-    const newAccessToken = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET,
-      { expiresIn: '15m' }
-    );
-
-    const newRefreshToken = jwt.sign(
-      { id: user._id },
-      process.env.JWT_REFRESH_SECRET,
-      { expiresIn: '7d' }
-    );
-
-    // Update the refresh token in the database
-    user.refreshToken = newRefreshToken;
-    await user.save();
-
-    // Send the new tokens
-    res
-      .status(200)
-      .cookie('access_token', newAccessToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-      })
-      .json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
-  } catch (error) {
-    next(error);
-  }
-};
+// Removed the refreshToken function since it's no longer needed.
