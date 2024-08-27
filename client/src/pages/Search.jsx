@@ -125,7 +125,7 @@ export default function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(sidebarData);
-    navigate(`/search?${urlParams.toString()}`);
+    navigate(`https://api-alpha-fawn.vercel.app/search?${urlParams.toString()}`);
   };
   
   const handleShowMore = async () => {

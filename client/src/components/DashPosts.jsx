@@ -93,7 +93,7 @@ export default function DashPosts() {
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/post/${post.slug}`}>
+                    <Link to={`https://api-alpha-fawn.vercel.app/post/${post.slug}`}>
                       <img
                         src={post.image}
                         alt={post.title}
@@ -104,7 +104,7 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link
                       className='font-medium text-gray-900 dark:text-white'
-                      to={`/post/${post.slug}`}
+                      to={`https://api-alpha-fawn.vercel.app/post/${post.slug}`}
                     >
                       {post.title}
                     </Link>
@@ -124,7 +124,7 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link
                       className='text-teal-500 hover:underline'
-                      to={`/update-post/${post._id}`}
+                      to={`https://api-alpha-fawn.vercel.app/update-post/${post._id}`}
                     >
                       <span>Edit</span>
                     </Link>

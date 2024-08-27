@@ -23,7 +23,7 @@ export default function Home() {
           web development, software engineering, and programming languages.
         </p>
         <Link
-          to='/search'
+          to='https://api-alpha-fawn.vercel.app/search'
           className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'
         >
           View all posts

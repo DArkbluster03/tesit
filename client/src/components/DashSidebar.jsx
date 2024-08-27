@@ -45,7 +45,7 @@ export default function DashSidebar() {
       <Sidebar.Items>
         <Sidebar.ItemGroup className='flex flex-col gap-1'>
           {currentUser && currentUser.isAdmin && (
-            <Link to='/dashboard?tab=dash'>
+            <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
                 icon={HiChartPie}
@@ -55,7 +55,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-          <Link to='/dashboard?tab=profile'>
+          <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
@@ -67,7 +67,7 @@ export default function DashSidebar() {
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
-            <Link to='/dashboard?tab=posts'>
+            <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}
                 icon={HiDocumentText}
@@ -79,7 +79,7 @@ export default function DashSidebar() {
           )}
           {currentUser.isAdmin && (
             <>
-              <Link to='/dashboard?tab=users'>
+              <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=users'>
                 <Sidebar.Item
                   active={tab === 'users'}
                   icon={HiOutlineUserGroup}
@@ -88,7 +88,7 @@ export default function DashSidebar() {
                   Users
                 </Sidebar.Item>
               </Link>
-              <Link to='/dashboard?tab=comments'>
+              <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=comments'>
                 <Sidebar.Item
                   active={tab === 'comments'}
                   icon={HiAnnotation}

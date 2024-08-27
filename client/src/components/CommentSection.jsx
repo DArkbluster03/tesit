@@ -71,7 +71,7 @@ export default function CommentSection({ postId }) {
 
   const handleLike = async (commentId) => {
     if (!currentUser) {
-      navigate('/sign-in');
+      navigate('https://api-alpha-fawn.vercel.app/sign-in');
       return;
     }
 
@@ -104,7 +104,7 @@ export default function CommentSection({ postId }) {
   const handleDelete = async (commentId) => {
     setShowModal(false);
     if (!currentUser) {
-      navigate('/sign-in');
+      navigate('https://api-alpha-fawn.vercel.app/sign-in');
       return;
     }
 
@@ -129,7 +129,7 @@ export default function CommentSection({ postId }) {
             src={currentUser.profilePicture}
             alt=''
           />
-          <Link to={'/dashboard?tab=profile'} className='text-xs text-cyan-600 hover:underline'>
+          <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=profile'} className='text-xs text-cyan-600 hover:underline'>
             @{currentUser.username}
           </Link>
         </div>

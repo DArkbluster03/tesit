@@ -46,7 +46,7 @@ export default function Header() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('searchTerm', searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
+    navigate(`https://api-alpha-fawn.vercel.app/search?${searchQuery}`);
   };
   return (
     <Navbar className='border-b-2'>
@@ -93,7 +93,7 @@ export default function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
-            <Link to={'/dashboard?tab=profile'}>
+            <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
