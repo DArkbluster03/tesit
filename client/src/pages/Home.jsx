@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('https://api-alpha-fawn.vercel.app/post/getPosts');
+      const res = await fetch('/post/getPosts');
       const data = await res.json();
       setPosts(data.posts);
     };
@@ -23,7 +23,7 @@ export default function Home() {
           web development, software engineering, and programming languages.
         </p>
         <Link
-          to='https://api-alpha-fawn.vercel.app/search'
+          to='/search'
           className='text-xs sm:text-sm text-teal-500 font-bold hover:underline'
         >
           View all posts

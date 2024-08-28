@@ -27,7 +27,7 @@ export default function Header() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('https://api-alpha-fawn.vercel.app/user/signout', {
+      const res = await fetch('/user/signout', {
         method: 'POST',
       });
       const data = await res.json();
@@ -46,7 +46,7 @@ export default function Header() {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('searchTerm', searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`https://api-alpha-fawn.vercel.app/search?${searchQuery}`);
+    navigate(`/search?${searchQuery}`);
   };
   return (
     <Navbar className='border-b-2'>
@@ -93,7 +93,7 @@ export default function Header() {
                 {currentUser.email}
               </span>
             </Dropdown.Header>
-            <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=profile'}>
+            <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />

@@ -14,7 +14,7 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/getcomments`);
+        const res = await fetch(`/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);

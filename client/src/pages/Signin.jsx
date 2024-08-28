@@ -26,7 +26,7 @@ export default function SignIn() {
     }
     try {
        dispatch(signInStart());
-      const res = await fetch('https://api-alpha-fawn.vercel.app/auth/signin', {
+      const res = await fetch('/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -105,7 +105,7 @@ export default function SignIn() {
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>don't have an account?</span>
-            <Link to='https://api-alpha-fawn.vercel.app/sign-up' className='text-blue-500'>
+            <Link to='/sign-up' className='text-blue-500'>
               Sign Up
             </Link>
           </div>

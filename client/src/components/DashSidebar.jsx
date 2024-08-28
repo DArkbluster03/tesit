@@ -27,7 +27,7 @@ export default function DashSidebar() {
   }, [location.search]);
   const handleSignout = async () => {
     try {
-      const res = await fetch('https://api-alpha-fawn.vercel.app/user/signout', {
+      const res = await fetch('/user/signout', {
         method: 'POST',
       });
       const data = await res.json();
@@ -45,7 +45,7 @@ export default function DashSidebar() {
       <Sidebar.Items>
         <Sidebar.ItemGroup className='flex flex-col gap-1'>
           {currentUser && currentUser.isAdmin && (
-            <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=dash'>
+            <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
                 icon={HiChartPie}
@@ -55,7 +55,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-          <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=profile'>
+          <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
@@ -67,7 +67,7 @@ export default function DashSidebar() {
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (
-            <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=posts'>
+            <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}
                 icon={HiDocumentText}
@@ -79,7 +79,7 @@ export default function DashSidebar() {
           )}
           {currentUser.isAdmin && (
             <>
-              <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=users'>
+              <Link to='/dashboard?tab=users'>
                 <Sidebar.Item
                   active={tab === 'users'}
                   icon={HiOutlineUserGroup}
@@ -88,7 +88,7 @@ export default function DashSidebar() {
                   Users
                 </Sidebar.Item>
               </Link>
-              <Link to='https://api-alpha-fawn.vercel.app/dashboard?tab=comments'>
+              <Link to='/dashboard?tab=comments'>
                 <Sidebar.Item
                   active={tab === 'comments'}
                   icon={HiAnnotation}

@@ -27,7 +27,7 @@ export default function CommentSection({ postId }) {
 
   const fetchComments = async () => {
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/getPostComments/${postId}`);
+      const res = await fetch(`/comment/getPostComments/${postId}`);
       if (res.ok) {
         const data = await res.json();
         setComments(data);
@@ -46,7 +46,7 @@ export default function CommentSection({ postId }) {
     if (comment.length > 200) return;
 
     try {
-      const res = await fetch('https://api-alpha-fawn.vercel.app/comment/create', {
+      const res = await fetch('/comment/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,12 +71,12 @@ export default function CommentSection({ postId }) {
 
   const handleLike = async (commentId) => {
     if (!currentUser) {
-      navigate('https://api-alpha-fawn.vercel.app/sign-in');
+      navigate('/sign-in');
       return;
     }
 
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/likeComment/${commentId}`, { method: 'PUT' });
+      const res = await fetch(`/comment/likeComment/${commentId}`, { method: 'PUT' });
 
       if (res.ok) {
         const data = await res.json();
@@ -104,12 +104,12 @@ export default function CommentSection({ postId }) {
   const handleDelete = async (commentId) => {
     setShowModal(false);
     if (!currentUser) {
-      navigate('https://api-alpha-fawn.vercel.app/sign-in');
+      navigate('/sign-in');
       return;
     }
 
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/deleteComment/${commentId}`, { method: 'DELETE' });
+      const res = await fetch(`/comment/deleteComment/${commentId}`, { method: 'DELETE' });
 
       if (res.ok) {
         setComments(comments.filter((comment) => comment._id !== commentId));
