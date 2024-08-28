@@ -28,7 +28,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/user/${comment.userId}`);
+        const res = await fetch(`https://api-alpha-fawn.vercel.app/user/${comment.userId}`);
         const data = await res.json();
         if (res.ok) {
           setUser(data);

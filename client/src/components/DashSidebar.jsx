@@ -27,7 +27,7 @@ export default function DashSidebar() {
   }, [location.search]);
   const handleSignout = async () => {
     try {
-      const res = await fetch('/user/signout', {
+      const res = await fetch('https://api-alpha-fawn.vercel.app//user/signout', {
         method: 'POST',
       });
       const data = await res.json();
