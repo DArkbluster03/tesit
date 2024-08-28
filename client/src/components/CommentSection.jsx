@@ -27,7 +27,7 @@ export default function CommentSection({ postId }) {
 
   const fetchComments = async () => {
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app//comment/getPostComments/${postId}`);
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/getPostComments/${postId}`);
       if (res.ok) {
         const data = await res.json();
         setComments(data);
@@ -46,7 +46,7 @@ export default function CommentSection({ postId }) {
     if (comment.length > 200) return;
 
     try {
-      const res = await fetch('https://api-alpha-fawn.vercel.app//comment/create', {
+      const res = await fetch('https://api-alpha-fawn.vercel.app/comment/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export default function CommentSection({ postId }) {
     }
 
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app//comment/likeComment/${commentId}`, { method: 'PUT' });
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/likeComment/${commentId}`, { method: 'PUT' });
 
       if (res.ok) {
         const data = await res.json();
@@ -109,7 +109,7 @@ export default function CommentSection({ postId }) {
     }
 
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app//comment/deleteComment/${commentId}`, { method: 'DELETE' });
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/deleteComment/${commentId}`, { method: 'DELETE' });
 
       if (res.ok) {
         setComments(comments.filter((comment) => comment._id !== commentId));
@@ -129,7 +129,7 @@ export default function CommentSection({ postId }) {
             src={currentUser.profilePicture}
             alt=''
           />
-          <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=profile'} className='text-xs text-cyan-600 hover:underline'>
+          <Link to={'/dashboard?tab=profile'} className='text-xs text-cyan-600 hover:underline'>
             @{currentUser.username}
           </Link>
         </div>

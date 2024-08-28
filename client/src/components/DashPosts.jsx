@@ -14,7 +14,7 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`https://api-alpha-fawn.vercel.app//post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(`https://api-alpha-fawn.vercel.app/post/getposts?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);

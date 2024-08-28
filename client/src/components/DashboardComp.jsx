@@ -245,7 +245,7 @@ export default function DashboardComp() {
               <div className='flex justify-between p-3 text-sm font-semibold'>
                 <h1 className='text-center p-2'>Recent users</h1>
                 <Button outline gradientDuoTone='purpleToPink'>
-                  <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=users'}>See all</Link>
+                  <Link to={'/dashboard?tab=users'}>See all</Link>
                 </Button>
               </div>
               <div className='overflow-auto' style={{ maxHeight: '300px' }}>
@@ -280,7 +280,7 @@ export default function DashboardComp() {
             <div className='flex justify-between p-3 text-sm font-semibold'>
               <h1 className='text-center p-2'>Recent comments</h1>
               <Button outline gradientDuoTone='purpleToPink'>
-                <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=comments'}>See all</Link>
+                <Link to={'/dashboard?tab=comments'}>See all</Link>
               </Button>
             </div>
             <div className='overflow-auto' style={{ maxHeight: '300px' }}>
@@ -310,7 +310,7 @@ export default function DashboardComp() {
             <div className='flex justify-between p-3 text-sm font-semibold'>
               <h1 className='text-center p-2'>Recent posts</h1>
               <Button outline gradientDuoTone='purpleToPink'>
-                <Link to={'https://api-alpha-fawn.vercel.app/dashboard?tab=posts'}>See all</Link>
+                <Link to={'/dashboard?tab=posts'}>See all</Link>
               </Button>
             </div>
             <div className='overflow-auto' style={{ maxHeight: '300px' }}>
