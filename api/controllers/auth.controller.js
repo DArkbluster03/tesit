@@ -19,6 +19,21 @@ const generateRefreshToken = (user) => {
   );
 };
 
+const generateAndSendToken = (user, res) => {
+  const token = jwt.sign(
+    { id: user._id, isAdmin: user.isAdmin },
+    process.env.JWT_SECRET
+  );
+  const { password, ...rest } = user._doc;
+  res
+    .status(200)
+    .cookie('access_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+    })
+    .json(rest);
+};
+
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -94,6 +109,32 @@ export const signin = async (req, res, next) => {
     return next(error);
   }
 };
+
+export const google = async (req, res, next) => {
+  const { email, name, googlePhotoUrl } = req.body;
+  try {
+    let user = await User.findOne({ email });
+    if (!user) {
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      user = new User({
+        username:
+          name.toLowerCase().split(' ').join('') +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePicture: googlePhotoUrl,
+      });
+      await user.save();
+    }
+    generateAndSendToken(user, res);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const refreshToken = async (req, res, next) => {
   const { token } = req.body;
 
@@ -131,4 +172,3 @@ export const refreshToken = async (req, res, next) => {
     return next(error);
   }
 };
-
