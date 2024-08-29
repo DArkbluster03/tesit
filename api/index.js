@@ -34,9 +34,10 @@ app.use(helmet());
 
 // CORS configuration
 app.use(cors({
-
+  origin: 'https://tesit-tan.vercel.app/', // Update with your frontend's domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
-
 app.use(express.json());
 app.use(cookieParser());
 
