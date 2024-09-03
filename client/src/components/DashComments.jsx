@@ -14,7 +14,7 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/getcomments`);
+        const res = await fetch(`https://api-alpha-fawn.vercel.app/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
@@ -35,7 +35,7 @@ export default function DashComments() {
     const startIndex = comments.length;
     try {
       const res = await fetch(
-        `https://api-alpha-fawn.vercel.app/comment/getcomments?startIndex=${startIndex}`
+        `https://api-alpha-fawn.vercel.app/comment/api/getcomments?startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -53,7 +53,7 @@ export default function DashComments() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `https://api-alpha-fawn.vercel.app/comment/deleteComment/${commentIdToDelete}`,
+        `https://api-alpha-fawn.vercel.app/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: 'DELETE',
         }

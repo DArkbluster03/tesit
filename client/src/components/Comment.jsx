@@ -89,7 +89,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     const getUser = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`https://api-alpha-fawn.vercel.app/user/${comment.userId}`);
+        const res = await fetch(`https://api-alpha-fawn.vercel.app/api/user/${comment.userId}`);
         const data = await res.json();
         if (res.ok) {
           setUser(data);
@@ -114,7 +114,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     const previousContent = comment.content;
     try {
       onEdit(comment, editedContent); // Optimistic update
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/editComment/${comment._id}`, {
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/api/comment/editComment/${comment._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

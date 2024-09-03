@@ -49,7 +49,7 @@ export default function DashboardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('https://api-alpha-fawn.vercel.app//user/getusers?limit=5');
+        const res = await fetch('https://api-alpha-fawn.vercel.app/api/user/getusers?limit=5');
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -62,7 +62,7 @@ export default function DashboardComp() {
     };
     const fetchPosts = async () => {
       try {
-        const res = await fetch('https://api-alpha-fawn.vercel.app/post/getposts?limit=20');
+        const res = await fetch('https://api-alpha-fawn.vercel.app/api/post/getposts?limit=20');
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -75,7 +75,7 @@ export default function DashboardComp() {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch('https://api-alpha-fawn.vercel.app/comment/getcomments?limit=5');
+        const res = await fetch('https://api-alpha-fawn.vercel.app/api/comment/getcomments?limit=5');
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
