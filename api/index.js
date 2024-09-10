@@ -30,7 +30,9 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 // Security middleware
-app.use(helmet());
+app.use(helmet({
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' }, // Configures COOP
+}));
 
 // CORS configuration
 app.use(cors({
@@ -38,16 +40,17 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('https://api-alpha-fawn.vercel.app/user', userRoutes);
-app.use('https://api-alpha-fawn.vercel.app/auth', authRoutes);
-app.use('https://api-alpha-fawn.vercel.app/post', postRoutes);
-app.use('https://api-alpha-fawn.vercel.app/comment', commentRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
-// Serve static files from the client/dist directory
+// Serve static files from the client/build directory
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 // Root route
