@@ -49,7 +49,7 @@ export default function DashboardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('https://api-alpha-fawn.vercel.app/api/user/getusers?limit=5');
+        const res = await fetch('https://api-alpha-fawn.vercel.app/user/getusers?limit=5');
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);

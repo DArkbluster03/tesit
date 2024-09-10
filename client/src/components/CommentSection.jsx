@@ -27,7 +27,7 @@ export default function CommentSection({ postId }) {
 
   const fetchComments = async () => {
     try {
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/api/comment/getPostComments/${postId}`);
+      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/getPostComments/${postId}`);
       if (res.ok) {
         const data = await res.json();
         setComments(data);

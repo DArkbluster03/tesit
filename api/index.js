@@ -42,10 +42,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 // API routes
-app.use('/api/user', userRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/post', postRoutes);
-app.use('/api/comment', commentRoutes);
+app.use('https://api-alpha-fawn.vercel.app/user', userRoutes);
+app.use('https://api-alpha-fawn.vercel.app/auth', authRoutes);
+app.use('https://api-alpha-fawn.vercel.app/post', postRoutes);
+app.use('https://api-alpha-fawn.vercel.app/comment', commentRoutes);
 
 // Serve static files from the client/dist directory
 app.use(express.static(path.join(__dirname, 'client', 'build')));
