@@ -19,87 +19,22 @@ const GradientButton = ({ type = 'button', children, onClick, disabled, outline 
   </button>
 );
 
-const UserInfo = ({ user, comment }) => (
-  <div className='flex-shrink-0 mr-3'>
-    <img
-      className='w-10 h-10 rounded-full bg-gray-200'
-      src={user.profilePicture}
-      alt={user.username}
-    />
-    <div className='flex items-center mb-1'>
-      <span className='font-bold mr-1 text-xs truncate'>
-        {user ? `@${user.username}` : 'anonymous user'}
-      </span>
-      <span className='text-gray-500 text-xs'>
-        {moment(comment.createdAt).fromNow()}
-      </span>
-    </div>
-  </div>
-);
-
-const CommentActions = ({ canEditOrDelete, onLike, onEdit, onDelete, comment, currentUser }) => (
-  <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2'>
-    <button
-      type='button'
-      onClick={() => onLike(comment._id)}
-      aria-label='Like this comment'
-      className={`text-gray-400 hover:text-blue-500 ${
-        currentUser &&
-        comment.likes.includes(currentUser._id) &&
-        '!text-blue-500'
-      }`}
-    >
-      <FaThumbsUp className='text-sm' />
-    </button>
-    <p className='text-gray-400'>
-      {comment.numberOfLikes > 0 &&
-        comment.numberOfLikes +
-          ' ' +
-          (comment.numberOfLikes === 1 ? 'like' : 'likes')}
-    </p>
-    {canEditOrDelete && (
-      <>
-        <button
-          type='button'
-          onClick={onEdit}
-          className='text-gray-400 hover:text-blue-500'
-        >
-          Edit
-        </button>
-        <button
-          type='button'
-          onClick={() => onDelete(comment._id)}
-          className='text-gray-400 hover:text-red-500'
-        >
-          Delete
-        </button>
-      </>
-    )}
-  </div>
-);
-
 export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
-      setLoading(true);
       try {
-        const res = await fetch(`https://api-alpha-fawn.vercel.app/user/${comment.userId}`);
+        const res = await fetch(`/api/user/${comment.userId}`);
         const data = await res.json();
         if (res.ok) {
           setUser(data);
-        } else {
-          console.error('Failed to fetch user');
         }
       } catch (error) {
-        console.error('Error fetching user:', error.message);
-      } finally {
-        setLoading(false);
+        console.log(error.message);
       }
     };
     getUser();
@@ -111,10 +46,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   };
 
   const handleSave = async () => {
-    const previousContent = comment.content;
     try {
-      onEdit(comment, editedContent); // Optimistic update
-      const res = await fetch(`https://api-alpha-fawn.vercel.app/comment/editComment/${comment._id}`, {
+      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,26 +56,33 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
           content: editedContent,
         }),
       });
-      if (!res.ok) {
-        throw new Error('Failed to save the comment');
+      if (res.ok) {
+        setIsEditing(false);
+        onEdit(comment, editedContent);
       }
-      setIsEditing(false);
     } catch (error) {
-      console.error('Error saving comment:', error.message);
-      onEdit(comment, previousContent); // Revert if failed
+      console.log(error.message);
     }
   };
 
-  const canEditOrDelete = currentUser && (currentUser._id === comment.userId || currentUser.isAdmin);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className='flex p-4 border-b dark:border-gray-600 text-sm'>
-      <UserInfo user={user} comment={comment} />
+      <div className='flex-shrink-0 mr-3'>
+        <img
+          className='w-10 h-10 rounded-full bg-gray-200'
+          src={user.profilePicture}
+          alt={user.username}
+        />
+      </div>
       <div className='flex-1'>
+        <div className='flex items-center mb-1'>
+          <span className='font-bold mr-1 text-xs truncate'>
+            {user ? `@${user.username}` : 'anonymous user'}
+          </span>
+          <span className='text-gray-500 text-xs'>
+            {moment(comment.createdAt).fromNow()}
+          </span>
+        </div>
         {isEditing ? (
           <>
             <Textarea
@@ -169,14 +109,44 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
         ) : (
           <>
             <p className='text-gray-500 pb-2'>{comment.content}</p>
-            <CommentActions
-              canEditOrDelete={canEditOrDelete}
-              onLike={onLike}
-              onEdit={handleEdit}
-              onDelete={onDelete}
-              comment={comment}
-              currentUser={currentUser}
-            />
+            <div className='flex items-center pt-2 text-xs border-t dark:border-gray-700 max-w-fit gap-2'>
+              <button
+                type='button'
+                onClick={() => onLike(comment._id)}
+                className={`text-gray-400 hover:text-blue-500 ${
+                  currentUser &&
+                  comment.likes.includes(currentUser._id) &&
+                  '!text-blue-500'
+                }`}
+              >
+                <FaThumbsUp className='text-sm' />
+              </button>
+              <p className='text-gray-400'>
+                {comment.numberOfLikes > 0 &&
+                  comment.numberOfLikes +
+                    ' ' +
+                    (comment.numberOfLikes === 1 ? 'like' : 'likes')}
+              </p>
+              {currentUser &&
+                (currentUser._id === comment.userId || currentUser.isAdmin) && (
+                  <>
+                    <button
+                      type='button'
+                      onClick={handleEdit}
+                      className='text-gray-400 hover:text-blue-500'
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type='button'
+                      onClick={() => onDelete(comment._id)}
+                      className='text-gray-400 hover:text-red-500'
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+            </div>
           </>
         )}
       </div>
