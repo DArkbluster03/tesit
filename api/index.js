@@ -31,7 +31,8 @@ const app = express();
 
 // Security middleware
 app.use(helmet({
-  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' }, // Configures COOP
+  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
+  crossOriginEmbedderPolicy: { policy: 'require-corp' },
 }));
 
 // CORS configuration
