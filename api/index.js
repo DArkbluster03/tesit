@@ -7,7 +7,6 @@ import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import helmet from 'helmet';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -28,12 +27,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-
-// Security middleware
-app.use(helmet({
-  crossOriginOpenerPolicy: { policy: 'same-origin-allow-popups' },
-  crossOriginEmbedderPolicy: { policy: 'require-corp' },
-}));
 
 // CORS configuration
 app.use(cors({
