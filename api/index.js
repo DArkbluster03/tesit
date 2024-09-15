@@ -30,9 +30,7 @@ const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: 'https://frontend-nu-kohl.vercel.app', // Update with your frontend's domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+  
 }));
 
 app.use(express.json());
